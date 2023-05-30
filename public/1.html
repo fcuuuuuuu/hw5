@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping List</title>
+</head>
+<body>
+<div id="app">
+    <form onsubmit="addItem(event)">
+        <p>Add item</p>
+        <p>Item name: <input type="text" required id="itemName"></p>
+        <p>How many: <input type="number" id="itemNumber"></p>
+        <button type="submit">Add item</button>
+    </form>
+
+    <p>Shopping list:</p>
+    <ul id="shoppingList"></ul>
+</div>
+
+<script>
+    const itemNameInput = document.getElementById('itemName');
+    const itemNumberInput = document.getElementById('itemNumber');
+    const shoppingList = [
+        { name: 'Tomatoes', number: 5 }
+    ];
+    const shoppingListElement = document.getElementById('shoppingList');
+
+    function addItem(event) {
+        event.preventDefault();
+        const itemName = itemNameInput.value;
+        const itemNumber = itemNumberInput.value;
+        if (itemName && itemNumber) {
+            shoppingList.push({ name: itemName, number: itemNumber });
+            itemNameInput.value = '';
+            itemNumberInput.value = '';
+            renderShoppingList();
+        }
+    }
+
+    function renderShoppingList() {
+        shoppingListElement.innerHTML = '';
+        shoppingList.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item.name + ', ' + item.number;
+            shoppingListElement.appendChild(li);
+        });
+    }
+
+    renderShoppingList();
+</script>
+</body>
+</html>
